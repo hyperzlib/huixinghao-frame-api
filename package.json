@@ -1,6 +1,6 @@
 {
   "name": "@hyperzlib/huixinghao-frame-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Iframe api for huixinghao.cn plugin development.",
   "keywords": [
     "huixinghao",
