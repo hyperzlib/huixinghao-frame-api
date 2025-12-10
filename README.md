@@ -123,4 +123,4 @@ A: 每个事件都包含 `platform` 字段，可以用来区分不同直播平�
 
 ## API 文档
 
-详见 [API 文档](./docs/API.md)
+详见 [API 文档](./docs/api.md)
