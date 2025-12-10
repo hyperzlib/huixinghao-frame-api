@@ -1,0 +1,51 @@
+{
+  "name": "@hyperzlib/huixinghao-frame-api",
+  "version": "1.0.0",
+  "description": "Iframe api for huixinghao.cn plugin development.",
+  "keywords": [
+    "huixinghao",
+    "streaming",
+    "danmaku",
+    "live",
+    "chat"
+  ],
+  "homepage": "https://github.com/hyperzlib/huixinghao-frame-api#readme",
+  "bugs": {
+    "url": "https://github.com/hyperzlib/huixinghao-frame-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyperzlib/huixinghao-frame-api.git"
+  },
+  "license": "MIT",
+  "author": "Hyperzlib",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:browser",
+    "build:esm": "tsc",
+    "build:browser": "node scripts/build-browser.cjs",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/eventemitter3": "^2.0.2",
+    "esbuild": "^0.21.5",
+    "rollup": "^4.9.6",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1"
+  }
+}
