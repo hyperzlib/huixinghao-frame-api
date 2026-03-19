@@ -29,12 +29,14 @@ export type HxhPlatformUserInfo = {
 } & Record<string, any>;
 
 export interface PlatformUserInfo {
-    /** 用户UID（已废弃，固定为0） */
-    uid: number;
+    /** 用户UID */
+    uid: string | number;
     /** 用户昵称 */
     uname: string;
     /** 用户头像 */
     face: string;
+    /** 来源平台 */
+    platform: string;
 }
 
 export interface PlatformUserDetailInfo {
@@ -55,8 +57,6 @@ export interface PlatformUserDetailInfo {
 }
 
 export type PlatformDanmakuEvent = PlatformUserInfo & PlatformUserDetailInfo & {
-    /** 平台标识 */
-    platform: string;
     /** 弹幕唯一id */
     id: string;
     /** 弹幕类型 */
@@ -94,8 +94,6 @@ export interface PlatformGiftBlindGift {
 }
 
 export type PlatformSendGiftEvent = PlatformUserInfo & PlatformUserDetailInfo & {
-    /** 平台标识 */
-    platform: string;
     /** 消息唯一id */
     id: string;
     /** 消息类型 */
@@ -122,8 +120,6 @@ export type PlatformSendGiftEvent = PlatformUserInfo & PlatformUserDetailInfo & 
 }
 
 export type PlatformSuperChatEvent = PlatformUserInfo & PlatformUserDetailInfo & {
-    /** 平台标识 */
-    platform: string;
     /** 消息唯一id */
     id: string;
     /** 消息类型 */
@@ -140,16 +136,7 @@ export type PlatformSuperChatEvent = PlatformUserInfo & PlatformUserDetailInfo &
     endTime: number;
 }
 
-export type PlatformSuperChatDelEvent = {
-    /** 留言id */
-    messageIds: number[];
-    /** 消息唯一id */
-    id: string;
-};
-
 export type PlatformGuardEvent = PlatformUserInfo & PlatformUserDetailInfo & {
-    /** 平台标识 */
-    platform: string;
     /** 消息唯一id */
     id: string;
     /** 消息类型 */
@@ -167,8 +154,10 @@ export type PlatformGuardEvent = PlatformUserInfo & PlatformUserDetailInfo & {
 };
 
 export type PlatformLikeEvent = PlatformUserInfo & PlatformUserDetailInfo & {
-    /** 平台标识 */
-    platform: string;
+    /** 消息唯一id */
+    id: string;
+    /** 消息类型 */
+    type: "like";
     /** 时间秒级时间戳 */
     timestamp: number;
     /** 点赞文案（例如“xxx点赞了”） */
@@ -177,18 +166,22 @@ export type PlatformLikeEvent = PlatformUserInfo & PlatformUserDetailInfo & {
     likeCount: number;
 };
 
-export type PlatformLiveRoomEnterEvent = PlatformUserInfo & {
-    /** 平台标识 */
-    platform: string;
+export type PlatformLiveRoomEnterEvent = PlatformUserInfo & PlatformUserDetailInfo & {
+    /** 消息唯一id */
+    id: string;
+    /** 消息类型 */
+    type: "enter";
     /** 进入时间秒级时间戳 */
     timestamp: number;
 };
 
 export type PlatformLiveStartEndEvent = {
+    /** 消息唯一id */
+    id: string;
+    /** 消息类型 */
+    type: "start" | "end";
     /** 发生的直播间 */
     roomId: number;
-    /** 用户唯一标识 */
-    uid: string;
     /** 发生的时间戳 */
     timestamp: number;
     /** 开播二级分区名称 */
@@ -231,8 +224,8 @@ export type HxhApiEvents = {
     "event.LIVE_OPEN_PLATFORM_GUARD": (data: [PlatformGuardEvent]) => void;
     /** SC事件 */
     "event.LIVE_OPEN_PLATFORM_SUPER_CHAT": (data: [PlatformSuperChatEvent]) => void;
-    /** SC撤回事件 */
-    "event.LIVE_OPEN_PLATFORM_SUPER_CHAT_DEL": (data: [PlatformSuperChatDelEvent]) => void;
+    /** SC撤回事件（可能已废弃） */
+    // "event.LIVE_OPEN_PLATFORM_SUPER_CHAT_DEL": (data: [PlatformSuperChatDelEvent]) => void;
     /** 点赞事件 */
     "event.LIVE_OPEN_PLATFORM_LIKE": (data: [PlatformLikeEvent]) => void;
     /** 进入直播间事件 */
@@ -241,6 +234,8 @@ export type HxhApiEvents = {
     "event.LIVE_OPEN_PLATFORM_LIVE_START": (data: [PlatformLiveStartEndEvent]) => void;
     /** 直播结束事件 */
     "event.LIVE_OPEN_PLATFORM_LIVE_END": (data: [PlatformLiveStartEndEvent]) => void;
+    /** 重置插件事件 */
+    "event.CLEAR_DATA": (data: [string]) => void;
 };
 
 export class HxhFrameApi {
