@@ -274,17 +274,6 @@ api.on('event.LIVE_OPEN_PLATFORM_SUPER_CHAT', (data: [PlatformSuperChatEvent]) =
 });
 ```
 
-#### `event.LIVE_OPEN_PLATFORM_SUPER_CHAT_DEL`
-
-超级留言撤回事件。
-
-```typescript
-api.on('event.LIVE_OPEN_PLATFORM_SUPER_CHAT_DEL', (data: [PlatformSuperChatDelEvent]) => {
-    const delEvent = data[0];
-    console.log('被撤回的留言 ID 列表:', delEvent.messageIds);
-});
-```
-
 #### `event.LIVE_OPEN_PLATFORM_LIKE`
 
 点赞事件。
